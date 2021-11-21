@@ -1,0 +1,329 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 504
+  ClientWidth = 668
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Label1: TLabel
+    AutoSize = True
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 24.000000000000000000
+    Position.Y = 16.000000000000000000
+    Size.Width = 274.399993896484400000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 24.000000000000000000
+    Text = 'Get All Country Data'
+    TabOrder = 6
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 7
+    Position.X = 176.000000000000000000
+    Position.Y = 336.000000000000000000
+    Size.Width = 233.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TextPrompt = 'country name'
+    object BtnSearch: TButton
+      Position.X = 248.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Search'
+      OnClick = BtnSearchClick
+      object Memo1: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        StyledSettings = [Family, Style, FontColor]
+        TextSettings.Font.Size = 14.000000000000000000
+        Position.X = -248.000000000000000000
+        Position.Y = 30.000000000000000000
+        Size.Width = 321.000000000000000000
+        Size.Height = 131.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 5
+        Viewport.Width = 317.000000000000000000
+        Viewport.Height = 127.000000000000000000
+      end
+    end
+  end
+  object Label2: TLabel
+    AutoSize = True
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 176.000000000000000000
+    Position.Y = 296.000000000000000000
+    Size.Width = 274.399993896484400000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 24.000000000000000000
+    Text = 'Country Specific Data'
+    TabOrder = 5
+  end
+  object Button1: TButton
+    Position.X = 24.000000000000000000
+    Position.Y = 48.000000000000000000
+    TabOrder = 13
+    Text = 'Fetch'
+    OnClick = Button1Click
+  end
+  object ListView1: TListView
+    ItemAppearanceClassName = 'TDynamicAppearance'
+    ItemEditAppearanceClassName = 'TDynamicAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Position.X = 24.000000000000000000
+    Position.Y = 78.000000000000000000
+    Size.Width = 625.000000000000000000
+    Size.Height = 163.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 14
+    ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
+      item
+        AppearanceObjectName = 'Text1'
+        AppearanceClassName = 'TTextObjectAppearance'
+      end
+      item
+        AppearanceObjectName = 'Text2'
+        AppearanceClassName = 'TTextObjectAppearance'
+        Appearance.Width = 676.000000000000000000
+        Appearance.Height = 36.000000000000000000
+        Appearance.PlaceOffset.X = -200.000000000000000000
+        Appearance.PlaceOffset.Y = 5.000000000000000000
+      end
+      item
+        AppearanceObjectName = 'Text3'
+        AppearanceClassName = 'TTextObjectAppearance'
+        Appearance.Width = 292.000000000000000000
+        Appearance.Height = 52.000000000000000000
+        Appearance.PlaceOffset.X = 344.000000000000000000
+      end>
+    ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
+      item
+        AppearanceObjectName = 'Text1'
+        AppearanceClassName = 'TTextObjectAppearance'
+      end>
+  end
+  object RESTClient1: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'http://api.countrylayer.com/v2/all'
+    Params = <>
+    Left = 320
+    Top = 8
+  end
+  object RESTRequest1: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient1
+    Params = <
+      item
+        Name = 'access_key'
+        Value = 'a27f44dd66e6153fa97baf552a367554'
+      end>
+    Response = RESTResponse1
+    Left = 232
+    Top = 104
+  end
+  object RESTResponse1: TRESTResponse
+    ContentType = 'application/json'
+    Left = 416
+    Top = 8
+  end
+  object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable1
+    FieldDefs = <>
+    Response = RESTResponse1
+    Left = 552
+    Top = 8
+  end
+  object FDMemTable1: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'name'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'topLevelDomain'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'alpha2Code'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'alpha3Code'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'callingCodes'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'capital'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'altSpellings'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'region'
+        DataType = ftWideString
+        Size = 255
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 240
+    Top = 40
+  end
+  object RESTClient2: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'http://api.countrylayer.com/v2/name/malaysia'
+    Params = <>
+    Left = 536
+    Top = 272
+  end
+  object RESTRequest2: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient2
+    Params = <
+      item
+        Name = 'fullText'
+        Value = 'True'
+      end
+      item
+        Name = 'access_key'
+        Value = 'a27f44dd66e6153fa97baf552a367554'
+      end>
+    Response = RESTResponse2
+    Left = 72
+    Top = 304
+  end
+  object RESTResponse2: TRESTResponse
+    ContentType = 'application/json'
+    Left = 72
+    Top = 360
+  end
+  object RESTResponseDataSetAdapter2: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable2
+    FieldDefs = <>
+    Response = RESTResponse2
+    TypesMode = Rich
+    Left = 72
+    Top = 408
+  end
+  object FDMemTable2: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'name'
+        DataType = ftWideString
+        Size = 8
+      end
+      item
+        Name = 'topLevelDomain'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'alpha2Code'
+        DataType = ftWideString
+        Size = 2
+      end
+      item
+        Name = 'alpha3Code'
+        DataType = ftWideString
+        Size = 3
+      end
+      item
+        Name = 'callingCodes'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'capital'
+        DataType = ftWideString
+        Size = 12
+      end
+      item
+        Name = 'altSpellings'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'region'
+        DataType = ftWideString
+        Size = 4
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 72
+    Top = 456
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = FDMemTable1
+    ScopeMappings = <>
+    Left = 256
+    Top = 248
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 60
+    Top = 157
+    object LinkFillControlToField1: TLinkFillControlToField
+      Category = 'Quick Bindings'
+      Control = ListView1
+      Track = True
+      FillDataSource = BindSourceDB1
+      AutoFill = True
+      FillExpressions = <
+        item
+          SourceMemberName = 'topLevelDomain'
+          ControlMemberName = 'Text1'
+        end
+        item
+          SourceMemberName = 'alpha2Code'
+          ControlMemberName = 'Text2'
+        end
+        item
+          SourceMemberName = 'capital'
+          ControlMemberName = 'Text3'
+        end>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+  end
+end
